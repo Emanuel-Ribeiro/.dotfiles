@@ -8,9 +8,22 @@ NC='\033[0m'
 # function to install packages with error handling / funcao para instalar pacotes tratando os erros
 install_packages() {
     for pkg in "$@"; do
-        if ! sudo apt install "$pkg" -y; then
-            echo -e "${RED}Failed to install $pkg${NC}"
-        fi
+        if command -v apt &> /dev/null; then
+            if ! sudo apt install "$pkg" -y; then
+                echo -e "${RED}Failed to install $pkg${NC}"
+            fi
+        elif command -v yum &> /dev/null || command -v dnf &> /dev/null; then
+            if ! sudo yum install "$pkg" -y; then
+                echo -e "${RED}Failed to install $pkg${NC}"
+            fi
+        elif command -v pacman &> /dev/null; then
+            if ! sudo pacman -S --noconfirm "$pkg"; then
+                echo -e "${RED}Failed to install $pkg${NC}"
+            fi
+        elif command -v brew &> /dev/null; then
+            if ! sudo brew install "$pkg"; then
+                echo -e "${RED}Failed to install $pkg${NC}"
+            fi
     done
 }
 
@@ -51,7 +64,7 @@ else
 fi
 
 # install essential packages / instalando pacotes essenciais
-install_packages curl npm cargo golang tmux neovim ripgrep i3 zsh
+install_packages curl npm cargo golang tmux neovim ripgrep i3 zsh pass
 
 # change default shell to zsh / mudando o shell padrao para zsh
 if ! chsh -s "$(which zsh)"; then
@@ -118,5 +131,13 @@ if ! ln -sf ~/.dotfiles/nvim ~/.config/ || ! ln -sf ~/.dotfiles/i3 ~/.config/ ||
     exit 1
 fi
 
-echo -e "${GREEN}Setup completed successfully${NC}"
+# configuring git credentials / configurando credenciais do git
+# wget https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.4.1/gcm-linux_amd64.2.4.1.tar.gz
+# sudo tar -xvf gcm-linux_amd64.2.4.1.tar.gz -C /usr/local/bin
+# sudo git-credential-manager configure --system
+# git config --global credential.credentialStore gpg
+# gpg --full-generate-key
+# pass init <gpgkey>
+
+echo -e "${GREEN}Setup completed successfully${NC} / ${GREEN}Setup concluido com sucesso${NC}"
 
