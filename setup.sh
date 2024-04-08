@@ -10,19 +10,19 @@ install_packages() {
     for pkg in "$@"; do
         if command -v apt &> /dev/null; then
             if ! sudo apt install "$pkg" -y; then
-                echo -e "${RED}Failed to install $pkg${NC}"
+                echo -e "${RED}Failed to install $pkg${NC} / ${RED}Falha ao instalar o pacote $pkg${NC}"
             fi
         elif command -v yum &> /dev/null || command -v dnf &> /dev/null; then
             if ! sudo yum install "$pkg" -y; then
-                echo -e "${RED}Failed to install $pkg${NC}"
+                echo -e "${RED}Failed to install $pkg${NC} / ${RED}Falha ao instalar o pacote $pkg${NC}"
             fi
         elif command -v pacman &> /dev/null; then
             if ! sudo pacman -S --noconfirm "$pkg"; then
-                echo -e "${RED}Failed to install $pkg${NC}"
+                echo -e "${RED}Failed to install $pkg${NC} / ${RED}Falha ao instalar o pacote $pkg${NC}"
             fi
         elif command -v brew &> /dev/null; then
             if ! sudo brew install "$pkg"; then
-                echo -e "${RED}Failed to install $pkg${NC}"
+                echo -e "${RED}Failed to install $pkg${NC} / ${RED}Falha ao instalar o pacote $pkg${NC}"
             fi
     done
 }
@@ -30,36 +30,36 @@ install_packages() {
 # update and upgrade package repositories / atualiza os repositorios dos pacotes
 if command -v apt &> /dev/null; then
     if ! sudo apt update -y && sudo apt upgrade -y; then
-        echo -e "${RED}Failed to update and upgrade package repositories${NC}"
+        echo -e "${RED}Failed to update and upgrade package repositories${NC} / ${RED}Falha ao atualizar os repositorios de pacotes${NC}"
         exit 1
     fi
 
 elif command -v yum &> /dev/null; then
     if ! sudo yum update -y && sudo yum upgrade -y; then
-        echo -e "${RED}Failed to update and upgrade package repositories${NC}"
+        echo -e "${RED}Failed to update and upgrade package repositories${NC} / ${RED}Falha ao atualizar os repositorios de pacotes${NC}"
         exit 1
     fi
 
 elif command -v dnf &> /dev/null; then
     if ! sudo dnf update -y && sudo dnf upgrade -y; then
-        echo -e "${RED}Failed to update and upgrade package repositories${NC}"
+        echo -e "${RED}Failed to update and upgrade package repositories${NC} / ${RED}Falha ao atualizar os repositorios de pacotes${NC}"
         exit 1
     fi
 
 elif command -v pacman &> /dev/null; then
     if ! sudo pacman -Syu --noconfirm; then
-        echo -e "${RED}Failed to update and upgrade package repositories${NC}"
+        echo -e "${RED}Failed to update and upgrade package repositories${NC} / ${RED}Falha ao atualizar os repositorios de pacotes${NC}"
         exit 1
     fi
 
 elif command -v brew &> /dev/null; then
     if ! brew update && brew upgrade; then
-        echo -e "${RED}Failed to update and upgrade package repositories${NC}"
+        echo -e "${RED}Failed to update and upgrade package repositories${NC} / ${RED}Falha ao atualizar os repositorios de pacotes${NC}"
         exit 1
     fi
 
 else
-    echo -e "${RED}Unsupported package manager. Exiting.${NC}"
+    echo -e "${RED}Unsupported package manager. Exiting.${NC} / ${RED}Gerenciador de pacotes não suportado. Saindo.${NC}"
     exit 1
 fi
 
@@ -68,19 +68,19 @@ install_packages curl npm cargo golang tmux neovim ripgrep i3 zsh pass
 
 # change default shell to zsh / mudando o shell padrao para zsh
 if ! chsh -s "$(which zsh)"; then
-    echo -e "${RED}Failed to change default shell to zsh${NC}"
+    echo -e "${RED}Failed to change default shell to zsh${NC} / ${RED}Falha ao definir zsh como shell padrao${NC}"
     exit 1
 fi
 
 # install oh my zsh if not already installed / instalando oh my zsh se ja nao estiver instalado
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
     if ! bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"; then
-        echo -e "${RED}Failed to install Oh My Zsh${NC}"
+        echo -e "${RED}Failed to install Oh My Zsh${NC} / ${RED}Falha ao instalar o Oh My Zsh${NC}"
         exit 1
     fi
 
 else
-    echo -e "${GREEN}Oh My Zsh is already installed${NC}"
+    echo -e "${GREEN}Oh My Zsh is already installed${NC} / ${GREEN}Oh My Zsh ja estava instalado${NC}"
 fi
 
 # clone powerlevel10k theme / clonando o tema powerlevel10k
@@ -89,7 +89,7 @@ if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
 fi
 
 if ! git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"; then
-    echo -e "${RED}Failed to clone powerlevel10k theme${NC}"
+    echo -e "${RED}Failed to clone powerlevel10k${NC} / ${RED}Falha ao clonar o powerlevel10k${NC}"
     exit 1
 fi
 
@@ -98,7 +98,7 @@ sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel10k\/powerlevel10k"/g' ~
 
 # install powerline fonts / instalando fonte powerline
 if ! sudo apt install fonts-powerline -y; then
-    echo -e "${RED}Failed to install powerline fonts${NC}"
+    echo -e "${RED}Failed to install powerline fonts${NC} / ${RED}Falha ao instalar a fonte power-line${NC}"
     exit 1
 fi
 
@@ -108,7 +108,7 @@ if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]; 
 fi
 
 if ! git clone https://github.com/zsh-users/zsh-autosuggestions.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"; then
-    echo -e "${RED}Failed to clone zsh-autosuggestions plugin${NC}"
+    echo -e "${RED}Failed to clone zsh-autosuggestions plugin${NC} / ${RED}Falha ao clonar o plugin zsh-autosuggestions${NC}"
     exit 1
 fi
 
@@ -117,7 +117,7 @@ if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
 fi
 
 if ! git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"; then
-    echo -e "${RED}Failed to clone zsh-syntax-highlighting plugin${NC}"
+    echo -e "${RED}Failed to clone zsh-syntax-highlighting plugin${NC} / ${RED}Falha ao clonar o plugin zsh-syntax-highlighting${NC}"
     exit 1
 fi
 
@@ -127,7 +127,7 @@ sed -i 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting
 # create symlink / criando links simbolicos 
 rm -rf ~/.config/nvim/ ~/.config/i3/ ~/.config/i3status/
 if ! ln -sf ~/.dotfiles/nvim ~/.config/ || ! ln -sf ~/.dotfiles/i3 ~/.config/ || ! ln -sf ~/.dotfiles/i3status ~/.config/; then
-    echo -e "${RED}Failed to create symbolic links for dotfiles${NC}"
+    echo -e "${RED}Failed to create symbolic links for dotfiles${NC} / ${RED}Falha ao criar links simbolicos para os dotfiles${NC}"
     exit 1
 fi
 
