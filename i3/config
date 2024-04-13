@@ -144,6 +144,4 @@ bindsym $mod+m move workspace to output left
 bindsym $mod+Shift+period exec systemctl suspend
 
 #interactive screenshot by pressing printscreen
-bindsym Print exec gnome-screenshot -i 
-#crop-area screenshot by pressing Mod + printscreen
-bindsym $mod+Print exec gnome-screenshot -a
+bindsym Print exec maim -s -u | xclip -selection clipboard -t image/png -i
