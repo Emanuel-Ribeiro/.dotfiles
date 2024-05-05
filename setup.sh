@@ -21,9 +21,10 @@ install_packages() {
                 echo -e "${RED}Failed to install $pkg${NC} / ${RED}Falha ao instalar o pacote $pkg${NC}"
             fi
         elif command -v brew &> /dev/null; then
-            if ! sudo brew install "$pkg"; then
+            if ! brew install "$pkg"; then
                 echo -e "${RED}Failed to install $pkg${NC} / ${RED}Falha ao instalar o pacote $pkg${NC}"
             fi
+        fi
     done
 }
 
@@ -140,4 +141,3 @@ fi
 # pass init <gpgkey>
 
 echo -e "${GREEN}Setup completed successfully${NC} / ${GREEN}Setup concluido com sucesso${NC}"
-
