@@ -65,7 +65,7 @@ else
 fi
 
 # install essential packages / instalando pacotes essenciais
-install_packages curl npm cargo golang tmux neovim ripgrep i3 zsh pass maim
+install_packages curl npm cargo golang tmux ripgrep i3 zsh pass maim
 
 # change default shell to zsh / mudando o shell padrao para zsh
 if ! chsh -s "$(which zsh)"; then
