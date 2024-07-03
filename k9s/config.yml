@@ -86,4 +86,4 @@ k9s:
     memory:
       critical: 90
       warn: 70
-  screenDumpDir: /var/folders/9p/w4y1zkp53vngfpsnv_8lqg8r0000gn/T/k9s-screens-omerhamerman
+  screenDumpDir: /var/folders/9p/w4y1zkp53vngfpsnv_8lqg8r0000gn/T/k9s-screens-toor
