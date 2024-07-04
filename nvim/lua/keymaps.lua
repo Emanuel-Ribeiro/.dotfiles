@@ -49,6 +49,10 @@ vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left>
 
 -- da permissao de execução para o arquivo atual
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+
+-- abre um buffer de terminal vertical
+vim.api.nvim_set_keymap('n', '<leader>tv', ':rightbelow vsplit | terminal<CR>:vertical resize 45<CR>', { noremap = true, silent = true })
+
 -- end personal shit
 
 -- twilight
