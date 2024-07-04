@@ -55,6 +55,10 @@ vim.api.nvim_set_keymap('n', '<leader>tv', ':rightbelow vsplit | terminal<CR>:ve
 
 -- end personal shit
 
+-- Fterm
+vim.api.nvim_set_keymap("n", "<leader>tt", ":lua require('Fterm').toggle()<CR>", {noremap=true})
+vim.api.nvim_set_keymap("t", "<leader>tt", '<C-\\><C-n>:lua require("Fterm").toggle()<CR>', {noremap=true})
+
 -- twilight
 vim.api.nvim_set_keymap("n", "tw", ":Twilight<enter>", {noremap=false})
 
