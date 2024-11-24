@@ -120,6 +120,8 @@ bar {
 # CUSTOM KEYS START
 # ------------------------------------------
 exec --no-startup-id nm-applet
+exec always nitrogen --restore
+exec picom
 
 bindsym $mod+Shift+s exec --no-startup-id ~/dotfiles/bin/monitor
 bindsym $mod+Shift+n exec --no-startup-id ~/dotfiles/bin/resolution
@@ -145,3 +147,4 @@ bindsym $mod+Shift+period exec systemctl suspend
 
 #interactive screenshot by pressing printscreen
 bindsym Print exec maim -s -u | xclip -selection clipboard -t image/png -i
+
