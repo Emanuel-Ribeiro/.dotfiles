@@ -3,7 +3,8 @@ local wezterm = require 'wezterm'
 return {
   -- Aparência e configurações gerais
   --color_scheme = 'Ef-Elea-Light',
-  color_scheme = 'Gruvbox Dark (Gogh)',
+  --color_scheme = 'Gruvbox Dark (Gogh)',
+  color_scheme = 'Gruvbox (Gogh)',
   enable_tab_bar = true,
   font_size = 14.0,
   font = wezterm.font('JetBrains Mono'),
@@ -14,8 +15,8 @@ return {
   --  hue = 1.0,
   --  saturation = 0.8,
  -- },
- -- window_background_opacity = 1.0,
-  window_decorations = 'RESIZE',
+ window_background_opacity = 0.8,
+ window_decorations = 'RESIZE',
 
   -- Configurações de atalhos
   keys = {
@@ -24,15 +25,21 @@ return {
 
     -- Divisão vertical (lado a lado)
     { key = 'D', mods = 'CMD', action = wezterm.action.SplitHorizontal{domain="CurrentPaneDomain"} },
+    { key = 'D', mods = 'CTRL', action = wezterm.action.SplitHorizontal{domain="CurrentPaneDomain"} },
 
     -- Divisão horizontal (acima/abaixo)
     { key = 'E', mods = 'CMD', action = wezterm.action.SplitVertical{domain="CurrentPaneDomain"} },
+    { key = 'E', mods = 'CTRL', action = wezterm.action.SplitVertical{domain="CurrentPaneDomain"} },
 
     -- Navegação entre divisões usando Command + setas
     { key = 'LeftArrow', mods = 'CMD', action = wezterm.action.ActivatePaneDirection("Left") },
     { key = 'RightArrow', mods = 'CMD', action = wezterm.action.ActivatePaneDirection("Right") },
     { key = 'UpArrow', mods = 'CMD', action = wezterm.action.ActivatePaneDirection("Up") },
     { key = 'DownArrow', mods = 'CMD', action = wezterm.action.ActivatePaneDirection("Down") },
+    { key = 'LeftArrow', mods = 'CTRL', action = wezterm.action.ActivatePaneDirection("Left") },
+    { key = 'RightArrow', mods = 'CTRL', action = wezterm.action.ActivatePaneDirection("Right") },
+    { key = 'UpArrow', mods = 'CTRL', action = wezterm.action.ActivatePaneDirection("Up") },
+    { key = 'DownArrow', mods = 'CTRL', action = wezterm.action.ActivatePaneDirection("Down") },
   },
 
   -- Configurações do mouse
